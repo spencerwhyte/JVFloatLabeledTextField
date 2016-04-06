@@ -31,6 +31,12 @@
 static CGFloat const kFloatingLabelShowAnimationDuration = 0.3f;
 static CGFloat const kFloatingLabelHideAnimationDuration = 0.3f;
 
+@interface JVFloatLabeledTextField()
+
+@property (nonatomic, strong) NSString * currentPlaceholder;
+
+@end
+
 @implementation JVFloatLabeledTextField
 {
     BOOL _isFloatingLabelFontDefault;
@@ -56,20 +62,65 @@ static CGFloat const kFloatingLabelHideAnimationDuration = 0.3f;
 
 - (void)commonInit
 {
+    self.clipsToBounds = NO;
+    
     _floatingLabel = [UILabel new];
     _floatingLabel.alpha = 0.0f;
     [self addSubview:_floatingLabel];
+    
+    _underlineView = [UIView new];
+    [self addSubview:_underlineView];
 	
+    _currentPlaceholder = self.placeholder;
+    self.placeholder = NULL;
+    
+    _keepBaseline = YES;
+    _animateEvenIfNotFirstResponder = YES;
+    _floatingLabelYPadding = -2;
+    
+    
     // some basic default fonts/colors
     _floatingLabelFont = [self defaultFloatingLabelFont];
     _floatingLabel.font = _floatingLabelFont;
     _floatingLabelTextColor = [UIColor grayColor];
     _floatingLabel.textColor = _floatingLabelTextColor;
-    _animateEvenIfNotFirstResponder = NO;
     _floatingLabelShowAnimationDuration = kFloatingLabelShowAnimationDuration;
     _floatingLabelHideAnimationDuration = kFloatingLabelHideAnimationDuration;
-    [self setFloatingLabelText:self.placeholder];
-
+    [self setFloatingLabelText:_currentPlaceholder];
+    
+    // some basic default layout for underline
+    _underlineView.userInteractionEnabled = NO;
+    _underlineView.backgroundColor = _floatingLabelTextColor;
+    _underlineView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:_underlineView
+                                                     attribute:NSLayoutAttributeHeight
+                                                     relatedBy:NSLayoutRelationEqual
+                                                        toItem:NULL
+                                                     attribute:NSLayoutAttributeNotAnAttribute
+                                                    multiplier:1
+                                                      constant:1]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:self
+                                                     attribute:NSLayoutAttributeLeading
+                                                     relatedBy:NSLayoutRelationEqual
+                                                        toItem:_underlineView
+                                                     attribute:NSLayoutAttributeLeading
+                                                    multiplier:1
+                                                      constant:0]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:self
+                                                     attribute:NSLayoutAttributeBottom
+                                                     relatedBy:NSLayoutRelationEqual
+                                                        toItem:_underlineView
+                                                     attribute:NSLayoutAttributeBottom
+                                                    multiplier:1
+                                                      constant:-1]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:self
+                                                     attribute:NSLayoutAttributeTrailing
+                                                     relatedBy:NSLayoutRelationEqual
+                                                        toItem:_underlineView
+                                                     attribute:NSLayoutAttributeTrailing
+                                                    multiplier:1
+                                                      constant:0]];
+    
     _adjustsClearButtonRect = YES;
     _isFloatingLabelFontDefault = YES;
 }
@@ -90,7 +141,8 @@ static CGFloat const kFloatingLabelHideAnimationDuration = 0.3f;
         textFieldFont = self.font;
     }
     
-    return [UIFont fontWithName:textFieldFont.fontName size:roundf(textFieldFont.pointSize * 0.7f)];
+    //    return [UIFont fontWithName:textFieldFont.fontName size:roundf(textFieldFont.pointSize * 0.7f)];
+    return [UIFont fontWithName:textFieldFont.fontName size:roundf(textFieldFont.pointSize * 0.9f)];
 }
 
 - (void)updateDefaultFloatingLabelFont
@@ -124,7 +176,7 @@ static CGFloat const kFloatingLabelHideAnimationDuration = 0.3f;
     }
     _floatingLabel.font = _floatingLabelFont ? _floatingLabelFont : [self defaultFloatingLabelFont];
     _isFloatingLabelFontDefault = floatingLabelFont == nil;
-    [self setFloatingLabelText:self.placeholder];
+    [self setFloatingLabelText:_currentPlaceholder];
     [self invalidateIntrinsicContentSize];
 }
 
@@ -138,7 +190,7 @@ static CGFloat const kFloatingLabelHideAnimationDuration = 0.3f;
                                           _floatingLabel.frame.size.height);
     };
     
-    if (animated || 0 != _animateEvenIfNotFirstResponder) {
+    if (animated || _animateEvenIfNotFirstResponder) {
         [UIView animateWithDuration:_floatingLabelShowAnimationDuration
                               delay:0.0f
                             options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseOut
@@ -153,15 +205,14 @@ static CGFloat const kFloatingLabelHideAnimationDuration = 0.3f;
 - (void)hideFloatingLabel:(BOOL)animated
 {
     void (^hideBlock)() = ^{
-        _floatingLabel.alpha = 0.0f;
+        _floatingLabel.alpha = 1.0f;
         _floatingLabel.frame = CGRectMake(_floatingLabel.frame.origin.x,
                                           _floatingLabel.font.lineHeight + _placeholderYPadding,
                                           _floatingLabel.frame.size.width,
                                           _floatingLabel.frame.size.height);
-
     };
     
-    if (animated || 0 != _animateEvenIfNotFirstResponder) {
+    if (animated || _animateEvenIfNotFirstResponder) {
         [UIView animateWithDuration:_floatingLabelHideAnimationDuration
                               delay:0.0f
                             options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseIn
@@ -246,7 +297,8 @@ static CGFloat const kFloatingLabelHideAnimationDuration = 0.3f;
 - (CGRect)textRectForBounds:(CGRect)bounds
 {
     CGRect rect = [super textRectForBounds:bounds];
-    if ([self.text length] || self.keepBaseline) {
+    //    if ([self.text length] || self.keepBaseline) {
+    if (self.keepBaseline) {
         rect = [self insetRectForBounds:rect];
     }
     return CGRectIntegral(rect);
@@ -255,7 +307,8 @@ static CGFloat const kFloatingLabelHideAnimationDuration = 0.3f;
 - (CGRect)editingRectForBounds:(CGRect)bounds
 {
     CGRect rect = [super editingRectForBounds:bounds];
-    if ([self.text length] || self.keepBaseline) {
+    //    if ([self.text length] || self.keepBaseline) {
+    if (self.keepBaseline) {
         rect = [self insetRectForBounds:rect];
     }
     return CGRectIntegral(rect);
@@ -272,8 +325,8 @@ static CGFloat const kFloatingLabelHideAnimationDuration = 0.3f;
 {
     CGRect rect = [super clearButtonRectForBounds:bounds];
     if (0 != self.adjustsClearButtonRect
-    	&& _floatingLabel.text.length // for when there is no floating title label text
-	) {
+        && _floatingLabel.text.length // for when there is no floating title label text
+        ) {
         if ([self.text length] || self.keepBaseline) {
             CGFloat topInset = ceilf(_floatingLabel.font.lineHeight + _placeholderYPadding);
             topInset = MIN(topInset, [self maxTopInset]);
@@ -337,9 +390,10 @@ static CGFloat const kFloatingLabelHideAnimationDuration = 0.3f;
                                       floatingLabelSize.height);
     
     BOOL firstResponder = self.isFirstResponder;
-    _floatingLabel.textColor = (firstResponder && self.text && self.text.length > 0 ?
-                                self.labelActiveColor : self.floatingLabelTextColor);
-    if ((!self.text || 0 == [self.text length]) && !self.alwaysShowFloatingLabel) {
+    _floatingLabel.textColor = (firstResponder ? self.labelActiveColor : self.floatingLabelTextColor);
+    _underlineView.backgroundColor = _floatingLabel.textColor;
+    
+    if ((!self.text || [self.text length] == 0) && !self.alwaysShowFloatingLabel && !firstResponder) {
         [self hideFloatingLabel:firstResponder];
     }
     else {

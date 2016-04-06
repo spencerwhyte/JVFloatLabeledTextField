@@ -50,7 +50,7 @@ IB_DESIGNABLE
 
 /**
  * Padding to be applied to the y coordinate of the floating label upon presentation.
- * Defaults to zero.
+ * Defaults to -2.
  */
 @property (nonatomic) IBInspectable CGFloat floatingLabelYPadding;
 
@@ -88,7 +88,7 @@ IB_DESIGNABLE
 
 /**
  * Indicates whether the floating label's appearance should be animated regardless of first responder status.
- * By default, animation only occurs if the text field is a first responder.
+ * Defaults to YES
  */
 @property (nonatomic, assign) IBInspectable BOOL animateEvenIfNotFirstResponder;
 
@@ -111,8 +111,8 @@ IB_DESIGNABLE
 @property (nonatomic, assign) IBInspectable BOOL adjustsClearButtonRect;
 
 /**
- * Indicates whether or not to drop the baseline when entering text. Setting to YES (not the default) means the standard greyed-out placeholder will be aligned with the entered text
- * Defaults to NO (standard placeholder will be above whatever text is entered)
+ * Indicates whether or not to drop the baseline when entering text. Setting to NO (not the default) means the standard greyed-out placeholder will be above whatever text is entered
+ * Defaults to YES (standard greyed-out placeholder will be aligned with the entered text)
  */
 @property (nonatomic, assign) IBInspectable BOOL keepBaseline;
 
@@ -121,6 +121,8 @@ IB_DESIGNABLE
  * Defaults to NO
  */
 @property (nonatomic, assign) BOOL alwaysShowFloatingLabel;
+
+@property (nonatomic, strong) UIView * underlineView;
 
 /**
  *  Sets the placeholder and the floating title
