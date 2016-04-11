@@ -132,4 +132,46 @@ IB_DESIGNABLE
  */
 - (void)setPlaceholder:(NSString *)placeholder floatingTitle:(NSString *)floatingTitle;
 
+
+
+
+
+
+
+
+
+
+/**
+ * Read-only access to the error label.
+ */
+@property (nonatomic, strong, readonly) UILabel * errorLabel;
+
+/**
+ * Padding to be applied to the y coordinate of the error label upon presentation.
+ * Defaults to zero
+ */
+@property (nonatomic) IBInspectable CGFloat errorLabelYPadding;
+
+/**
+ * Padding to be applied to the x coordinate of the floating label upon presentation.
+ * Defaults to zero
+ */
+@property (nonatomic) IBInspectable CGFloat errorLabelXPadding;
+
+/**
+ * Font to be applied to the floating label.
+ * Defaults to the first applicable of the following:
+ * - the custom specified attributed placeholder font at 70% of its size
+ * - the custom specified textField font at 70% of its size
+ */
+@property (nonatomic, strong) UIFont * errorLabelFont;
+
+/**
+ * Text color to be applied to the floating label.
+ * Defaults to `[UIColor grayColor]`.
+ */
+@property (nonatomic, strong) IBInspectable UIColor * errorLabelTextColor;
+
+- (void)setError:(NSString * _Nullable)errorMessage;
+
 @end
