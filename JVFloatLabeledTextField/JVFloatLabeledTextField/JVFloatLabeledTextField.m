@@ -109,6 +109,7 @@ static CGFloat const kFloatingLabelHideAnimationDuration = 0.3f;
     _errorLabelTextColor = [UIColor redColor];
     _errorLabel.textColor = _errorLabelTextColor;
     _errorLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    _errorLabel.adjustsFontSizeToFitWidth = YES;
     [self setFloatingLabelText:_currentPlaceholder];
     
     // some basic default layout for underline
@@ -378,7 +379,7 @@ static CGFloat const kFloatingLabelHideAnimationDuration = 0.3f;
 - (void)setErrorLabelText:(NSString *)text
 {
     _errorLabel.text = text;
-    [self setNeedsLayout];
+    text.length > 0 ? [self showErrorLabel:YES] : [self hideErrorLabel:YES];
 }
 
 #pragma mark - UITextField
