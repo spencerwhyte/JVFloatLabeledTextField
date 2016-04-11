@@ -338,7 +338,9 @@ static CGFloat const kFloatingLabelHideAnimationDuration = 0.3f;
                               delay:0.0f
                             options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseIn
                          animations:hideBlock
-                         completion:nil];
+                         completion:^(BOOL finished) {
+                             _errorLabel.text = NULL;
+                         }];
     }
     else {
         hideBlock();
@@ -378,8 +380,13 @@ static CGFloat const kFloatingLabelHideAnimationDuration = 0.3f;
 
 - (void)setErrorLabelText:(NSString *)text
 {
-    _errorLabel.text = text;
-    text.length > 0 ? [self showErrorLabel:YES] : [self hideErrorLabel:YES];
+    if (text.length > 0) {
+        _errorLabel.text = text;
+        [self showErrorLabel:YES];
+    }
+    else {
+        [self hideErrorLabel:YES];
+    }
 }
 
 #pragma mark - UITextField
