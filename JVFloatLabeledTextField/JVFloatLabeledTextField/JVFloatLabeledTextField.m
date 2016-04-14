@@ -93,7 +93,6 @@ static CGFloat const kFloatingLabelHideAnimationDuration = 0.3f;
     
     _keepBaseline = YES;
     _animateEvenIfNotFirstResponder = YES;
-    _floatingLabelYPadding = -2;
     
     
     // some basic default fonts/colors
@@ -270,11 +269,10 @@ static CGFloat const kFloatingLabelHideAnimationDuration = 0.3f;
     void (^showBlock)() = ^{
         _floatingLabel.alpha = 1.0f;
         _floatingLabel.frame = CGRectMake(_floatingLabel.frame.origin.x,
-                                          _floatingLabelYPadding,
+                                          -_floatingLabel.font.lineHeight - _floatingLabelYPadding,
                                           _floatingLabel.frame.size.width,
                                           _floatingLabel.frame.size.height);
     };
-    NSLog(@"SHOW: %f", _placeholderYPadding);
     
     if (animated || _animateEvenIfNotFirstResponder) {
         [UIView animateWithDuration:_floatingLabelShowAnimationDuration
@@ -293,11 +291,10 @@ static CGFloat const kFloatingLabelHideAnimationDuration = 0.3f;
     void (^hideBlock)() = ^{
         _floatingLabel.alpha = 1.0f;
         _floatingLabel.frame = CGRectMake(_floatingLabel.frame.origin.x,
-                                          _floatingLabel.font.lineHeight + _placeholderYPadding,
+                                          self.frame.size.height + _placeholderYPadding,
                                           _floatingLabel.frame.size.width,
                                           _floatingLabel.frame.size.height);
     };
-    NSLog(@"HIDE: %f", _floatingLabel.font.lineHeight + _placeholderYPadding);
     
     if (animated || _animateEvenIfNotFirstResponder) {
         [UIView animateWithDuration:_floatingLabelHideAnimationDuration
