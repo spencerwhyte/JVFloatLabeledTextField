@@ -291,7 +291,7 @@ static CGFloat const kFloatingLabelHideAnimationDuration = 0.3f;
     void (^hideBlock)() = ^{
         _floatingLabel.alpha = 1.0f;
         _floatingLabel.frame = CGRectMake(_floatingLabel.frame.origin.x,
-                                          self.frame.size.height + _placeholderYPadding,
+                                          self.frame.size.height + _placeholderYPadding - _floatingLabel.font.lineHeight,
                                           _floatingLabel.frame.size.width,
                                           _floatingLabel.frame.size.height);
     };
