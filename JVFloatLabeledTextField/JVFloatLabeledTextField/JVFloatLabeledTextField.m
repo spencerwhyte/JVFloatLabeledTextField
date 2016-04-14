@@ -269,7 +269,7 @@ static CGFloat const kFloatingLabelHideAnimationDuration = 0.3f;
     void (^showBlock)() = ^{
         _floatingLabel.alpha = 1.0f;
         _floatingLabel.frame = CGRectMake(_floatingLabel.frame.origin.x,
-                                          -_floatingLabel.font.lineHeight - _floatingLabelYPadding,
+                                          self.frame.size.height - self.font.lineHeight - _floatingLabel.font.lineHeight - _floatingLabelYPadding,
                                           _floatingLabel.frame.size.width,
                                           _floatingLabel.frame.size.height);
     };
@@ -291,7 +291,7 @@ static CGFloat const kFloatingLabelHideAnimationDuration = 0.3f;
     void (^hideBlock)() = ^{
         _floatingLabel.alpha = 1.0f;
         _floatingLabel.frame = CGRectMake(_floatingLabel.frame.origin.x,
-                                          self.frame.size.height + _placeholderYPadding - _floatingLabel.font.lineHeight,
+                                          self.frame.size.height - _floatingLabel.font.lineHeight + _placeholderYPadding ,
                                           _floatingLabel.frame.size.width,
                                           _floatingLabel.frame.size.height);
     };
