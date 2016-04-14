@@ -77,6 +77,8 @@ static CGFloat const kFloatingLabelHideAnimationDuration = 0.3f;
 {
     self.clipsToBounds = NO;
     
+    _floatingLabelYPadding = 2;
+    
     _floatingLabel = [UILabel new];
     _floatingLabel.alpha = 0.0f;
     [self addSubview:_floatingLabel];
