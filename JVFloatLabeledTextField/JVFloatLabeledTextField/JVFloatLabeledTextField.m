@@ -274,6 +274,7 @@ static CGFloat const kFloatingLabelHideAnimationDuration = 0.3f;
                                           _floatingLabel.frame.size.width,
                                           _floatingLabel.frame.size.height);
     };
+    NSLog(@"SHOW: %f", _placeholderYPadding);
     
     if (animated || _animateEvenIfNotFirstResponder) {
         [UIView animateWithDuration:_floatingLabelShowAnimationDuration
@@ -296,6 +297,7 @@ static CGFloat const kFloatingLabelHideAnimationDuration = 0.3f;
                                           _floatingLabel.frame.size.width,
                                           _floatingLabel.frame.size.height);
     };
+    NSLog(@"HIDE: %f", _floatingLabel.font.lineHeight + _placeholderYPadding);
     
     if (animated || _animateEvenIfNotFirstResponder) {
         [UIView animateWithDuration:_floatingLabelHideAnimationDuration
