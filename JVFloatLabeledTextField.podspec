@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-  s.name         = "JVFloatLabeledTextField"
+  s.name         = "JVFloatLabeledTextFieldAndroid"
   s.version      = "1.1.0"
   s.summary      = "The original UITextField subclass implementing the Float Label Pattern."
   s.homepage     = "http://github.com/jverdi/JVFloatLabeledTextField"
@@ -11,4 +11,5 @@ Pod::Spec.new do |s|
   s.source_files = 'JVFloatLabeledTextField/JVFloatLabeledTextField/*.{h,m}'
   s.frameworks   = 'Foundation', 'UIKit'
   s.requires_arc = true
+  s.module_name  = 'JVFloatLabeledTextFieldAndroid'
 end
