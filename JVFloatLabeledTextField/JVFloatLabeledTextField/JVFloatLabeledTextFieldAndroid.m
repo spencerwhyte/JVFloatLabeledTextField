@@ -25,13 +25,13 @@
 //  IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#import "JVFloatLabeledTextField.h"
-#import "NSString+TextDirectionality.h"
+#import "JVFloatLabeledTextFieldAndroid.h"
+#import "NSString+TextDirectionalityAndroid.h"
 
 static CGFloat const kFloatingLabelShowAnimationDuration = 0.3f;
 static CGFloat const kFloatingLabelHideAnimationDuration = 0.3f;
 
-@interface JVFloatLabeledTextField()
+@interface JVFloatLabeledTextFieldAndroid()
 
 @property (nonatomic, strong) NSString * currentPlaceholder;
 
@@ -49,7 +49,7 @@ static CGFloat const kFloatingLabelHideAnimationDuration = 0.3f;
 
 
 
-@implementation JVFloatLabeledTextField
+@implementation JVFloatLabeledTextFieldAndroid
 {
     BOOL _isFloatingLabelFontDefault;
     BOOL _isErrorLabelFontDefault;

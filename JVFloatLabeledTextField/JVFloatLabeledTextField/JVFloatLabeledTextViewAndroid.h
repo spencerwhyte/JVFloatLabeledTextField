@@ -41,7 +41,7 @@
  * Credits for the concept to Matt D. Smith (@mds), and his original design:  http://mattdsmith.com/float-label-pattern/
  */
 IB_DESIGNABLE
-@interface JVFloatLabeledTextView : UITextView
+@interface JVFloatLabeledTextViewAndroid : UITextView
 
 /**
  * The placeholder string to be shown in the text view when no other text is present.

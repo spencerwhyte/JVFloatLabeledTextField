@@ -25,19 +25,19 @@
 //  IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#import "JVFloatLabeledTextView.h"
-#import "NSString+TextDirectionality.h"
+#import "JVFloatLabeledTextViewAndroid.h"
+#import "NSString+TextDirectionalityAndroid.h"
 
 static CGFloat const kFloatingLabelShowAnimationDuration = 0.3f;
 static CGFloat const kFloatingLabelHideAnimationDuration = 0.3f;
 
-@interface JVFloatLabeledTextView ()
+@interface JVFloatLabeledTextViewAndroid ()
 
 @property (nonatomic) CGFloat startingTextContainerInsetTop;
 
 @end
 
-@implementation JVFloatLabeledTextView
+@implementation JVFloatLabeledTextViewAndroid
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -78,7 +78,7 @@ static CGFloat const kFloatingLabelHideAnimationDuration = 0.3f;
     _placeholderLabel.numberOfLines = 0;
     _placeholderLabel.lineBreakMode = NSLineBreakByWordWrapping;
     _placeholderLabel.backgroundColor = [UIColor clearColor];
-    _placeholderTextColor = [JVFloatLabeledTextView defaultiOSPlaceholderColor];
+    _placeholderTextColor = [JVFloatLabeledTextViewAndroid defaultiOSPlaceholderColor];
     _placeholderLabel.textColor = _placeholderTextColor;
     [self insertSubview:_placeholderLabel atIndex:0];
     

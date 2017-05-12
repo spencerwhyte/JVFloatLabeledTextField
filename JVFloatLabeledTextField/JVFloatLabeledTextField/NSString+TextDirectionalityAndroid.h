@@ -52,7 +52,7 @@ typedef NS_ENUM(NSUInteger, JVTextDirection) {
 /**
  * `NSString (TextDirectionality)` is an NSString category that is used to infer the text directionality of a string.
  */
-@interface NSString (TextDirectionality)
+@interface NSString (TextDirectionalityAndroid)
 
 /**
  *  Inspects the string and makes a best guess at text directionality.

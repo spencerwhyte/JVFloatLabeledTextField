@@ -41,7 +41,7 @@
  * Credits for the concept to Matt D. Smith (@mds), and his original design:  http://mattdsmith.com/float-label-pattern/
  */
 IB_DESIGNABLE
-@interface JVFloatLabeledTextField : UITextField
+@interface JVFloatLabeledTextFieldAndroid : UITextField
 
 /**
  * Read-only access to the floating label.

@@ -27,9 +27,9 @@
 
 //  Based on a Stack Overflow answer http://stackoverflow.com/a/13697277/900251
 
-#import "NSString+TextDirectionality.h"
+#import "NSString+TextDirectionalityAndroid.h"
 
-@implementation NSString (TextDirectionality)
+@implementation NSString (TextDirectionalityAndroid)
 
 // Function takes UTF32 character, and not a unichar (=UTF16 character),
 // because some Unicode characters need full 32 bits to represent.
